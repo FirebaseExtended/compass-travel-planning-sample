@@ -1,0 +1,51 @@
+mutation createActivity(
+        $ref: String!
+        $destinationRef: String!
+        $name: String!
+        $description: String!
+        $locationName: String!
+        $timeOfDay: String!
+        $price: Float!
+        $familyFriendly: Boolean!
+        $duration: Float!
+        $imageUrl: String!
+        $embedding:  Vector! #@col(size:768) # added for embedding
+        $place: Place_Key!
+    ) @auth(level:PUBLIC) {
+        activity_insert(data:{
+            ref: $ref,
+            destinationRef: $destinationRef,
+            name: $name,
+            description: $description,
+            locationName: $locationName,
+            timeOfDay: $timeOfDay,
+            price: $price,
+            familyFriendly: $familyFriendly,
+            duration: $duration,
+            imageUrl: $imageUrl,
+            embedding: $embedding,
+            place: $place
+        })
+}
+
+mutation createPlace(
+    $ref: String!,
+    $name: String!,
+    $country: String!,
+    $continent: String!,
+    $knownFor: String!,
+    $tags: [String!]
+    $imageUrl: String!,
+    $embedding:  Vector! #@col(size:768) # added for embedding
+) @auth(level:PUBLIC) {
+    place_insert(data: {
+        ref: $ref,
+        name: $name,
+        country: $country,
+        continent: $continent,
+        knownFor: $knownFor,
+        tags: $tags,
+        imageUrl: $imageUrl,
+        embedding: $embedding
+    })
+}

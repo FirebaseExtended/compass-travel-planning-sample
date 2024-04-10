@@ -1,0 +1,54 @@
+query getNearestPlace ($placeDescription: String!) @auth(level:PUBLIC) {
+  places_embedding_similarity(compare_embed: {model: "textembedding-gecko@003", text: $placeDescription}, method: L2, limit: 3)
+  {
+    ref
+    name
+    country
+    continent
+    knownFor
+    tags
+    imageUrl
+  }
+}
+
+query getActivitiesForPlace ($placeId: String!) @auth(level:PUBLIC) {
+  activities(where: {destinationRef: {eq: $placeId } } ) {
+    ref
+    destinationRef
+    name
+    description
+    locationName
+    timeOfDay
+    price
+    familyFriendly
+    duration
+    imageUrl
+  }
+}
+
+query ListActivities @auth(level: NO_ACCESS) {
+  activities {
+    ref
+    destinationRef
+    name
+    description
+    locationName
+    timeOfDay
+    price
+    familyFriendly
+    duration
+    imageUrl
+  }
+}
+
+query ListPlaces @auth(level: NO_ACCESS) {
+  places (limit: 3) {
+    ref
+    name
+    country
+    continent
+    knownFor
+    tags
+    imageUrl
+  }
+}

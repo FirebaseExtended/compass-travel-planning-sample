@@ -1,0 +1,2 @@
+loadData/activity.json filter=lfs diff=lfs merge=lfs -text
+loadData/place.json filter=lfs diff=lfs merge=lfs -text

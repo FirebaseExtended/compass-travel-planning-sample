@@ -1,0 +1,11 @@
+connectorId: "my-connector"
+authMode: "PUBLIC" 
+generate:
+  javascriptSdk:
+    # Create a custom package name for your generated SDK
+    package: "@compass/backend"
+    # Tells Data Connect where to store the generated SDK code, this should be in the same
+    # directory as your app code
+    outputDir: "../../compass-generated"
+    # This property tells Data Connect what directory to install the generated SDK to
+    # packageJsonDir: "../../compass-generated"

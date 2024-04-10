@@ -1,0 +1,52 @@
+---
+model: vertexai/gemini-1.5-pro-preview
+config:
+  temperature: 1.0
+input:
+  schema:
+    properties:
+      request: {type: string}
+      place: {type: string}
+      placeDescription: {type: string}
+      activities: {type: array, items: {type: string}}
+    required: [request, place, placeDescription, activities]
+  default:
+    place: New York City
+    placeDescription: New York City is a vibrant and diverse metropolis situated on the Atlantic coast of the northeastern United States. The city is surrounded by the Hudson, East, and Harlem rivers, and the terrain is generally flat with some hills in the northern parts of the city. The climate is temperate, with warm, humid summers and cold, snowy winters.
+    activities: ["museums", "ferry rides", "statue of liberty"]
+output:
+  schema:
+    type: object
+    properties:
+      itinerary:
+        type: array
+        items: {type: object, properties: {day: {type: number}, date: {type: string}, planForDay: {type: array, items: {type: object, properties: {activityRef: {type: string}, activityTitle: {type: string}, activityDesc: {type: string} }}}}}
+      place: {type: string}
+      itineraryName: {type: string}
+      startDate: {type: string}
+      endDate: {type: string}
+      tags:
+        type: array
+        items: {type: string}
+---
+
+Generate an itinerary for a tourist planning on traveling to the location specified based in their request.
+If there is something that does not exist within the list of activities, do not include it in your answer.
+Feel free to relate the activitiy to the request in a meaningful way.
+In the plan for day array, put activities as a travel brouchure might do.
+Come up with a catchy name for the itinerary.
+
+Pick three activities per day, minimum of three day trip unless otherwise specified in the request.
+
+Output schema should not include the properties type or object.
+
+Pick a date after May 14, 2024 but before December 31, 2024
+
+Give each activity a unique title and description.
+
+Limit activity descriptions to 6 words.
+
+REQUEST : {{request}}
+PLACE : {{place}}
+PLACE DESCRIPTION : {{placeDescription}}
+AVAILABLE ACTIVITIES : {{activities}}
