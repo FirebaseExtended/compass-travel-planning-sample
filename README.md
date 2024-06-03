@@ -9,10 +9,6 @@ codelab](https://firebase.google.com/codelabs/ai-genkit-rag).
 If you want to try out an early preview of Data Connect, we have instructions
 below for you to follow!
 
-> ⚠️ **WARNING** ⚠️
-> You must be part of the [Firebase Data Connect Private Preview]((https://developers.google.com/profile/u/me/my-community/dataconnecteap))
-> to run this app as emulator support is required.
-
 # Try it out today!
 
 We recommend trying this project in IDX since it handles all dependencies for
@@ -75,10 +71,7 @@ side bar.
 1. Select the Firebase project you had previously created before launching this
 project in IDX.
 
-1. Click on the `Start Emulator` button in the Firebase side bar. **Note**: If
-the emulators fail to start with a `403 unauthorized access` warning, please see
-the prerequitsites about being accepted into the
-[Firebase Data Connect Private Preview](https://developers.google.com/profile/u/me/my-community/dataconnecteap).
+1. Click on the `Start Emulator` button in the Firebase side bar.
 
 1. Launch a new terminal and run the following command:
     ```
