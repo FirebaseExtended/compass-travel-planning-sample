@@ -34,8 +34,6 @@ interface MyResult {
   itineraries: Destination[];
 }
 
-const aiStudioAPIKey = "YOUR_KEY_HERE";
-
 const dc = dataConnect('localhost');
 
 configureGenkit({
@@ -44,7 +42,7 @@ configureGenkit({
       flowStateStore: { collection: 'flowTraceStore' },
     }),
     dotprompt({ dir: join(process.cwd(), 'prompts') }),
-    googleAI({apiKey: aiStudioAPIKey})
+    googleAI(), // reads the API key from the env variable GOOGLE_API_KEY
   ],
   flowStateStore: 'firebase',
   traceStore: 'firebase',
