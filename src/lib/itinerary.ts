@@ -23,7 +23,7 @@ import { configureGenkit } from '@genkit-ai/core';
 import { dotprompt, prompt } from '@genkit-ai/dotprompt';
 import { firebase } from '@genkit-ai/firebase';
 import { defineFlow, run, runFlow } from '@genkit-ai/flow';
-import { vertexAI } from '@genkit-ai/vertexai';
+import { googleAI } from '@genkit-ai/googleai';
 import dataConnect from './data-connect';
 import { getActivitiesForPlace, getNearestPlace } from '@compass/backend';
 import { z } from 'zod';
@@ -34,9 +34,7 @@ interface MyResult {
   itineraries: Destination[];
 }
 
-const getLocation = () => {
-  return 'us-central1';
-};
+const aiStudioAPIKey = "YOUR_KEY_HERE";
 
 const dc = dataConnect('localhost');
 
@@ -45,10 +43,8 @@ configureGenkit({
     firebase({
       flowStateStore: { collection: 'flowTraceStore' },
     }),
-    vertexAI({
-      location: getLocation() || 'us-central1',
-    }),
     dotprompt({ dir: join(process.cwd(), 'prompts') }),
+    googleAI({apiKey: aiStudioAPIKey})
   ],
   flowStateStore: 'firebase',
   traceStore: 'firebase',
