@@ -21,37 +21,26 @@ import { join } from 'path';
 import { defineRetriever, Document, retrieve } from '@genkit-ai/ai/retriever';
 import { configureGenkit } from '@genkit-ai/core';
 import { dotprompt, prompt } from '@genkit-ai/dotprompt';
-import { firebase } from '@genkit-ai/firebase';
 import { defineFlow, run, runFlow } from '@genkit-ai/flow';
-import { vertexAI } from '@genkit-ai/vertexai';
+import { textEmbeddingGecko001, googleAI } from '@genkit-ai/googleai';
 import dataConnect from './data-connect';
 import { getActivitiesForPlace, getNearestPlace } from '@compass/backend';
 import { z } from 'zod';
 
 import { Destination } from './legacy/types';
+import { embed } from '@genkit-ai/ai/embedder';
 
 interface MyResult {
   itineraries: Destination[];
 }
 
-const getLocation = () => {
-  return 'us-central1';
-};
-
 const dc = dataConnect('localhost');
 
 configureGenkit({
   plugins: [
-    firebase({
-      flowStateStore: { collection: 'flowTraceStore' },
-    }),
-    vertexAI({
-      location: getLocation() || 'us-central1',
-    }),
     dotprompt({ dir: join(process.cwd(), 'prompts') }),
+    googleAI(),
   ],
-  flowStateStore: 'firebase',
-  traceStore: 'firebase',
   enableTracingAndMetrics: true,
   logLevel: 'debug',
 });
@@ -136,7 +125,11 @@ const placeRetriever = defineRetriever(
     configSchema: QueryOptions,
   },
   async (input, options) => {
-    const result = await getNearestPlace(dc, { placeDescription: input.text() });
+    const requestEmbedding = await embed({
+      embedder: textEmbeddingGecko001,
+      content: input.text(),
+    });
+    const result = await getNearestPlace(dc, { placeDescriptionVector: requestEmbedding });
 
     const resultData = result.data;
     return {
