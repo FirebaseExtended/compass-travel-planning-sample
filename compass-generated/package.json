@@ -8,14 +8,14 @@
     "node": " >=20.0"
   },
   "typings": "index.d.ts",
-  "module": "index.esm.js",
+  "module": "esm/index.esm.js",
   "main": "index.cjs.js",
-  "browser": "index.esm.js",
+  "browser": "esm/index.esm.js",
   "exports": {
     ".": {
       "types": "./index.d.ts",
       "require": "./index.cjs.js",
-      "default": "./index.esm.js"
+      "default": "./esm/index.esm.js"
     },
     "./package.json": "./package.json"
   },

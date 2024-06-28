@@ -3,8 +3,8 @@
 {pkgs, ... }:
   let firebase-ext = pkgs.fetchurl {
     url =
-      "https://firebasestorage.googleapis.com/v0/b/firemat-preview-drop/o/vsix%2Ffirebase-vscode-0.2.0.vsix?alt=media&token=4f3eb6d9-8ec9-46d7-b051-9631f9bbc30e";
-    hash = "sha256-GYqm7huYPJgDw8tVOIlpK/ObUnn3Z5jYh5lbtcZvjKE=";
+      "https://firebasestorage.googleapis.com/v0/b/firemat-preview-drop/o/vsix%2Ffirebase-vscode-0.2.8.vsix?alt=media&token=ba272e6e-c6b3-4860-bc2a-cd5b9cd7e022";
+    hash = "sha256-n4D70K61vThL3Tdjq1lq2Z/+4CBLtRj7ePY8uiv0taw=";
     name = "firebase.vsix";
   };
   in {
@@ -18,21 +18,23 @@
       pkgs.nodePackages.pnpm
       pkgs.bun
       pkgs.git-lfs
+      pkgs.unzip
+      pkgs.zip
     ];
     # Sets environment variables in the workspace
     env = {
-        POSTGRESQL_CONN_STRING = "postgresql://user:mypassword@localhost:5432/dataconnect?sslmode=disable";
-        FIRESQL_PORT = "9939";
-        # Sets environment variables in the workspace
-        # You can get a Gemini API key through the IDX Integrations panel to the left!
-        GOOGLE_API_KEY = "";
+      POSTGRESQL_CONN_STRING = "postgresql://user:mypassword@localhost:5432/dataconnect?sslmode=disable";
+      FIRESQL_PORT = "9939";
+      # Sets environment variables in the workspace
+      # You can get a Gemini API key through the IDX Integrations panel to the left!
+      GOOGLE_API_KEY = "REPLACE_ME_WITH_API_KEY";
     };
 
     processes = {
-        postgresRun = {
-          command = "postgres -D local -k /tmp";
-        };
+      postgresRun = {
+        command = "postgres -D ./local -k /tmp";
       };
+    };
 
     idx = {
       # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
@@ -41,32 +43,24 @@
         "mtxr.sqltools"
         "GraphQL.vscode-graphql-syntax"
         "${firebase-ext}"
-        # "vscodevim.vim"
       ];
       workspace = {
         # Runs when a workspace is first created with this `dev.nix` file
         onCreate = {
-          postgresSetup = ''
-            mkdir -p ~/tripedia/local
-            initdb -D ~/tripedia/local
-            postgres -D ~/tripedia/local -k /tmp &
-            sleep 4
-            PGHOST=/tmp psql --dbname=postgres -c "ALTER USER \"user\" PASSWORD 'mypassword';"
-            PGHOST=/tmp psql --dbname=postgres -c "CREATE DATABASE dataconnect;"
-            PGHOST=/tmp psql --dbname=dataconnect -c "CREATE EXTENSION vector;"
-          '';
           npm-install = ''
             npm install
           '';
           git-lfs-fetch = ''
             git lfs install
             git lfs pull
+            unzip local.zip -d .
           '';
         };
         onStart = {
         };
         # To run something each time the environment is rebuilt, use the `onStart` hook
       };
+      
       # Enable previews and customize configuration
       previews = {
         enable = true;
