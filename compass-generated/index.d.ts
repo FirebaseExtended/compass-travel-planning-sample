@@ -1,4 +1,4 @@
-import { ConnectorConfig, DataConnect, getDataConnect, QueryRef, MutationRef, QueryPromise, MutationPromise } from 'firebase/data-connect';
+import { ConnectorConfig, DataConnect, QueryRef, QueryPromise, MutationRef, MutationPromise } from 'firebase/data-connect';
 export const connectorConfig: ConnectorConfig;
 
 export type TimestampString = string;
@@ -31,11 +31,9 @@ export interface CreateActivityVariables {
   familyFriendly: boolean;
   duration: number;
   imageUrl: string;
-  embedding:  {
-    
+  embedding: {
   };
-  
-  place: Place_Key;
+    place: Place_Key;
 }
 
 export interface CreatePlaceResponse {
@@ -48,29 +46,25 @@ export interface CreatePlaceVariables {
   country: string;
   continent: string;
   knownFor: string;
-  tags?: (string | null)[];
+  tags?: string[] | null;
   imageUrl: string;
-  embedding:  {
-    
+  embedding: {
   };
-  
 }
 
 export interface GetActivitiesForPlaceResponse {
-  activities:  ({
-    
-  ref: string;
-  destinationRef: string;
-  name: string;
-  description: string;
-  locationName: string;
-  timeOfDay: string;
-  price: number;
-  familyFriendly: boolean;
-  duration: number;
-  imageUrl: string;
+  activities: ({
+    ref: string;
+    destinationRef: string;
+    name: string;
+    description: string;
+    locationName: string;
+    timeOfDay: string;
+    price: number;
+    familyFriendly: boolean;
+    duration: number;
+    imageUrl: string;
   } & Activity_Key)[];
-  
 }
 
 export interface GetActivitiesForPlaceVariables {
@@ -78,55 +72,47 @@ export interface GetActivitiesForPlaceVariables {
 }
 
 export interface GetNearestPlaceResponse {
-  places_embedding_similarity:  ({
-    
-  ref: string;
-  name: string;
-  country: string;
-  continent: string;
-  knownFor: string;
-  tags: string[];
-  imageUrl: string;
+  places_embedding_similarity: ({
+    ref: string;
+    name: string;
+    country: string;
+    continent: string;
+    knownFor: string;
+    tags: string[];
+    imageUrl: string;
   } & Place_Key)[];
-  
 }
 
 export interface GetNearestPlaceVariables {
-  placeDescriptionVector:  {
-    
+  placeDescriptionVector: {
   };
-  
 }
 
 export interface ListActivitiesResponse {
-  activities:  ({
-    
-  ref: string;
-  destinationRef: string;
-  name: string;
-  description: string;
-  locationName: string;
-  timeOfDay: string;
-  price: number;
-  familyFriendly: boolean;
-  duration: number;
-  imageUrl: string;
+  activities: ({
+    ref: string;
+    destinationRef: string;
+    name: string;
+    description: string;
+    locationName: string;
+    timeOfDay: string;
+    price: number;
+    familyFriendly: boolean;
+    duration: number;
+    imageUrl: string;
   } & Activity_Key)[];
-  
 }
 
 export interface ListPlacesResponse {
-  places:  ({
-    
-  ref: string;
-  name: string;
-  country: string;
-  continent: string;
-  knownFor: string;
-  tags: string[];
-  imageUrl: string;
+  places: ({
+    ref: string;
+    name: string;
+    country: string;
+    continent: string;
+    knownFor: string;
+    tags: string[];
+    imageUrl: string;
   } & Place_Key)[];
-  
 }
 
 export interface Place_Key {
@@ -134,24 +120,6 @@ export interface Place_Key {
   __typename?: 'Place_Key';
 }
 
-
-
-/* Allow users to create refs without passing in DataConnect */
-export function createActivityRef(vars: CreateActivityVariables): MutationRef<CreateActivityResponse, CreateActivityVariables>;
-/* Allow users to pass in custom DataConnect instances */
-export function createActivityRef(dc: DataConnect, vars: CreateActivityVariables): MutationRef<CreateActivityResponse,CreateActivityVariables>;
-
-export function createActivity(vars: CreateActivityVariables): MutationPromise<CreateActivityResponse, CreateActivityVariables>;
-export function createActivity(dc: DataConnect, vars: CreateActivityVariables): MutationPromise<CreateActivityResponse,CreateActivityVariables>;
-
-
-/* Allow users to create refs without passing in DataConnect */
-export function createPlaceRef(vars: CreatePlaceVariables): MutationRef<CreatePlaceResponse, CreatePlaceVariables>;
-/* Allow users to pass in custom DataConnect instances */
-export function createPlaceRef(dc: DataConnect, vars: CreatePlaceVariables): MutationRef<CreatePlaceResponse,CreatePlaceVariables>;
-
-export function createPlace(vars: CreatePlaceVariables): MutationPromise<CreatePlaceResponse, CreatePlaceVariables>;
-export function createPlace(dc: DataConnect, vars: CreatePlaceVariables): MutationPromise<CreatePlaceResponse,CreatePlaceVariables>;
 
 
 /* Allow users to create refs without passing in DataConnect */
@@ -186,5 +154,23 @@ export function listPlacesRef(dc: DataConnect): QueryRef<ListPlacesResponse,unde
 
 export function listPlaces(): QueryPromise<ListPlacesResponse, undefined>;
 export function listPlaces(dc: DataConnect): QueryPromise<ListPlacesResponse,undefined>;
+
+
+/* Allow users to create refs without passing in DataConnect */
+export function createActivityRef(vars: CreateActivityVariables): MutationRef<CreateActivityResponse, CreateActivityVariables>;
+/* Allow users to pass in custom DataConnect instances */
+export function createActivityRef(dc: DataConnect, vars: CreateActivityVariables): MutationRef<CreateActivityResponse,CreateActivityVariables>;
+
+export function createActivity(vars: CreateActivityVariables): MutationPromise<CreateActivityResponse, CreateActivityVariables>;
+export function createActivity(dc: DataConnect, vars: CreateActivityVariables): MutationPromise<CreateActivityResponse,CreateActivityVariables>;
+
+
+/* Allow users to create refs without passing in DataConnect */
+export function createPlaceRef(vars: CreatePlaceVariables): MutationRef<CreatePlaceResponse, CreatePlaceVariables>;
+/* Allow users to pass in custom DataConnect instances */
+export function createPlaceRef(dc: DataConnect, vars: CreatePlaceVariables): MutationRef<CreatePlaceResponse,CreatePlaceVariables>;
+
+export function createPlace(vars: CreatePlaceVariables): MutationPromise<CreatePlaceResponse, CreatePlaceVariables>;
+export function createPlace(dc: DataConnect, vars: CreatePlaceVariables): MutationPromise<CreatePlaceResponse,CreatePlaceVariables>;
 
 

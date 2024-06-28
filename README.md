@@ -33,65 +33,13 @@ only slight configuration required.
 
 1. [Activate billing on your Google Cloud / Firebase Project](https://console.cloud.google.com/billing/linkedaccount?project=_)
 
-### Setup IDX
+### Run the app in Project IDX
 
-Then click the Open In IDX button above. Once the project is launched in IDX,
- please do the following:
+Open the app in Project IDX using the button above.
 
-1. Wait for the terminal tasks to finish running. The terminal tasks do things 
-like initialize a PostgreSQL database for you, download the JSON files using git 
-lfs, and install all the dependencies for the NextJS project. You can tell that 
-the terminal tasks have been completed when the README.md appears as the main
-editor window and the web preview for the NextJS app has appeared as well.
+1. Click on the IDX side bar icon and get an Gemini API key with the Gemini integration. After authenticating you can get an API key copied to your clipboard. Paste this value into `env` section of the `.idx/dev.nix`. Make sure not to commit your API key.
 
-1. Next click on the Firebase side bar icon to open the Firebase side bar panel.
+1. Next click on the Firebase side bar icon to open the Firebase side bar panel. Click the "Connect to Local PostgreSQL" button to run the Data Connect emulator.
 
-1. You will be prompted to trust the workspace. Check the box to `Allow the
-workspace to access Google Cloud resources using my Google Account`. and click
-`Continue`.
-
-1. Login with your Google account
-
-1. In the Firebase side panel, under the config window, click
-`Sign in with Google` to specifically authenticate with Firebase CLI.
-
-1. In the terminal window at the bottom of the screen, you should be prompted to
-`Allow Firebase to collect CLI and Emulator Suite usand and error reporting
-information`. You can select the default by pressing `enter` or you can deny by
-entering a `n` and pressing `enter`.
-
-1. You will see a prompt for visiting a URL like `https://auth.firebase.tools/login?code_challenge=abc...`. Go
-and visit that URL to authenticate and paste the authorization code back into
-the terminal.
-
-1. Once you have finished authenticating with the Firebase CLI, click on
-the `Connect a Firebase Project` button in the `Config` section of the Firebase
-side bar.
-
-1. Select the Firebase project you had previously created before launching this
-project in IDX.
-
-1. Click on the `Start Emulator` button in the Firebase side bar.
-
-1. Launch a new terminal and run the following command:
-    ```
-    (cd loadData/ && node loadData.js)
-    ```
-    This will load all of our preview data into your local PostgreSQL instance.
-
-1. Activate the Vertex AI API using the following command:
-    ```
-    gcloud services enable aiplatform.googleapis.com
-    ```
-    IDX will likely ask you to select the project you would like to use, so
-select your Firebase project. This will allow your Firebase app to send calls
-to models on Vertex AI and will enable charges for generating embeddings
-and generating text responses from Gemini.
-
-1. Hard restart your web app by clicking the drop down in the preview window
-and selecting `Hard Restart` or by pressing `(CMD/CTRL) + SHIFT + P` to launch
-the command palette and searching for `Project IDX: Hard Restart Previews`
-
-1. Test and use the app as usual from the preview window.
-
-This is not an officially supported Google product
+### Misc
+This app is not an officially supported Google product
