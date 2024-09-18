@@ -23,7 +23,7 @@
     "clsx": "^2.1.0",
     "express": "^4.19.2",
     "firebase": "https://firebasestorage.googleapis.com/v0/b/firemat-preview-drop/o/js-sdk%2Ffirebase-v10.13.0.tgz?alt=media&token=25d8be1b-0aff-41aa-bf8f-254b0e98bdb7",
-    "next": "14.1.4",
+    "next": "14.2.10",
     "react": "^18",
     "react-dom": "^18",
     "sass": "^1.75.0",
